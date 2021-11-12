@@ -6,5 +6,7 @@ namespace InnoTech.LegosForLife.Domain.IRepositories
     public interface IProductRepository
     {
         List<Product> FindAll();
+
+        bool Create(Product product);
     }
 }

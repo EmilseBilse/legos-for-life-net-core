@@ -64,8 +64,28 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
             //Assert
             Assert.Equal(expectedList, actualResult, new Comparer());
         }
+
+        [Fact]
+        public void Create_ValidProduct()
+        {
+           //Arrange
+           var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+           var repository = new ProductRepository(fakeContext);
+           var product = new Product
+           {
+               Id = 1,
+               Name = "Ost"
+           };
+           
+           //Act
+           bool productCreated = repository.Create(product);
+           
+           //Assert
+           Assert.True(productCreated);
+        }
         
     }
+
 
     public class Comparer: IEqualityComparer<Product>
     {
