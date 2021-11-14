@@ -7,6 +7,7 @@ using InnoTech.LegosForLife.Core.Models;
 using InnoTech.LegosForLife.DataAccess.Entities;
 using InnoTech.LegosForLife.DataAccess.Repositories;
 using InnoTech.LegosForLife.Domain.IRepositories;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
@@ -82,6 +83,28 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
            
            //Assert
            Assert.True(productCreated);
+        }
+
+        [Theory]
+        [InlineData(1,"Lego1")]
+        [InlineData(3,"Lego3")]
+        public void GetByIdTest(int id, string name)
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new ProductRepository(fakeContext);
+            var list = new List<ProductEntity>
+            {
+                new ProductEntity { Id = 1, Name = "Lego1" },
+                new ProductEntity { Id = 2, Name = "Lego2" },
+                new ProductEntity { Id = 3, Name = "Lego3" }
+            };
+            fakeContext.Set<ProductEntity>().AddRange(list);
+            fakeContext.SaveChanges();
+
+            string expected = JsonConvert.SerializeObject(new Product {Id = id, Name = name});
+
+            string actual = JsonConvert.SerializeObject(repository.ReadById(id));
+            Assert.Equal(expected, actual);
         }
         
     }

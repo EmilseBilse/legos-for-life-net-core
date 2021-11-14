@@ -5,6 +5,7 @@ using InnoTech.LegosForLife.Core.Models;
 using InnoTech.LegosForLife.Domain.IRepositories;
 using InnoTech.LegosForLife.Domain.Services;
 using Moq;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace InnoTech.LegosForLife.Domain.Test
@@ -66,6 +67,19 @@ namespace InnoTech.LegosForLife.Domain.Test
                 .Returns(_expected);
             var actual = _service.GetProducts();
             Assert.Equal(_expected, actual);
+        }
+
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public void ReadById(int id)
+        {
+            _mock.Setup(r => r.ReadById(id))
+                .Returns(new Product {Id = id, Name = "Lego1"});
+
+            var actual = JsonConvert.SerializeObject(_service.ReadById(id));
+            var expected = JsonConvert.SerializeObject(new Product {Id = id, Name = "Lego1"});
+            Assert.Equal(expected,actual);
         }
     }
 }

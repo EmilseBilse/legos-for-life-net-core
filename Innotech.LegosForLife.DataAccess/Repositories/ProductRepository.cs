@@ -45,5 +45,15 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
                 return false;
             }
         }
+
+        public Product ReadById(int id)
+        {
+            return _ctx.Products
+                .Select(pe => new Product
+                {
+                    Id = pe.Id,
+                    Name = pe.Name
+                }).FirstOrDefault(pe => pe.Id == id);
+        }
     }
 }

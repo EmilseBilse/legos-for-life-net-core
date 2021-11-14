@@ -6,9 +6,9 @@ namespace InnoTech.LegosForLife.Core.IServices
     public interface IProductService
     {
         List<Product> GetProducts();
-        //tis
-        
-        
+        public Product ReadById(int i);
+
+
     }
     
     
