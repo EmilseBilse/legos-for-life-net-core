@@ -106,6 +106,23 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
             string actual = JsonConvert.SerializeObject(repository.ReadById(id));
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public void Delete_ValidProduct()
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new ProductRepository(fakeContext);
+            int mockProductId = 1;
+            Product product = new Product
+            {
+                Id = mockProductId,
+                Name = "Ost"
+            };
+            repository.Create(product);
+            
+            Assert.True(repository.Delete(mockProductId));
+
+        }
         
     }
 
@@ -125,5 +142,6 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
         {
             return HashCode.Combine(obj.Id, obj.Name);
         }
+
     }
 }
