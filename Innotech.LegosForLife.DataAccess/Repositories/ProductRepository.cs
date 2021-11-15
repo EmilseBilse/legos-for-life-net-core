@@ -48,6 +48,11 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
 
         public Product ReadById(int id)
         {
+            if (FindAll().Capacity < id)
+            {
+                throw new ArgumentException("Id is too high");
+            }
+            
             return _ctx.Products
                 .Select(pe => new Product
                 {
