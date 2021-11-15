@@ -37,5 +37,19 @@ namespace InnoTech.LegosForLife.Core.Test
             var service = mock.Object;
             Assert.Equal(expected, service.ReadById(1));
         }
+
+        [Fact]
+        public void CreateProduct()
+        {
+            var mock = new Mock<IProductService>();
+            Product product = new Product
+            {
+                Id = 1,
+                Name = "ost"
+            };
+            mock.Setup(s => s.Create(product)).Returns(true);
+            var service = mock.Object;
+            Assert.True(service.Create(product));
+        }
     }
 }

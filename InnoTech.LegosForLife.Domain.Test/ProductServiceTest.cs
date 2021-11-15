@@ -69,6 +69,19 @@ namespace InnoTech.LegosForLife.Domain.Test
             Assert.Equal(_expected, actual);
         }
 
+        [Fact]
+        public void CreateProduct_ValidProduct_ReturnsTrue()
+        {
+            Product product = new Product
+            {
+                Id = 1,
+                Name = "ost"
+            };
+            _mock.Setup(r => r.Create(product)).Returns(true);
+            var actual = _service.Create(product);
+            Assert.True(actual);
+        }
+
         [Theory]
         [InlineData(1)]
         [InlineData(2)]

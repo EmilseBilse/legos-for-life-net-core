@@ -9,6 +9,7 @@ namespace InnoTech.LegosForLife.Core.IServices
         public Product ReadById(int i);
 
 
+        bool Create(Product product);
     }
     
     
