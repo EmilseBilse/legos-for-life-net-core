@@ -9,6 +9,10 @@ namespace InnoTech.LegosForLife.Domain.IRepositories
 
         bool Create(Product product);
         Product ReadById(int id);
+
         Product UpdateNameById(int id, string newName);
+
+        bool Delete(int product);
+
     }
 }

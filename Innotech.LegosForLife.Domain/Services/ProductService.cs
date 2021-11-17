@@ -29,6 +29,7 @@ namespace InnoTech.LegosForLife.Domain.Services
             return _productRepository.Create(product);
         }
 
+
         public Product UpdateById(int id, string newName)
         {
             throw new System.NotImplementedException();
@@ -37,6 +38,11 @@ namespace InnoTech.LegosForLife.Domain.Services
         public Product UpdateNameById(int id, string newName)
         {
             return _productRepository.UpdateNameById(id, newName);
+        }
+
+        public bool Delete(int Id)
+        {
+            return _productRepository.Delete(Id);
         }
     }
 }

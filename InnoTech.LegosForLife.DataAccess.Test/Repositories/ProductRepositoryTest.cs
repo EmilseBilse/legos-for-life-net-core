@@ -107,9 +107,10 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
             Assert.Equal(expected, actual);
         }
 
+
         [Theory]
-        [InlineData(1,"LEEEEGOOO1")]
-        [InlineData(2,"HEJSA LEGO 2")]
+        [InlineData(1, "LEEEEGOOO1")]
+        [InlineData(2, "HEJSA LEGO 2")]
         public void UpdateNameByIdTest(int id, string newName)
         {
             var fakeContext = Create.MockedDbContextFor<MainDbContext>();
@@ -126,7 +127,24 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
             string expected = JsonConvert.SerializeObject(new Product {Id = id, Name = newName});
 
             string actual = JsonConvert.SerializeObject(repository.UpdateNameById(id, newName));
-            Assert.Equal(expected,actual);
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public void Delete_ValidProduct()
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new ProductRepository(fakeContext);
+            int mockProductId = 1;
+            Product product = new Product
+            {
+                Id = mockProductId,
+                Name = "Ost"
+            };
+            repository.Create(product);
+            
+            Assert.True(repository.Delete(mockProductId));
+            
         }
         
     }
@@ -147,5 +165,6 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
         {
             return HashCode.Combine(obj.Id, obj.Name);
         }
+
     }
 }
