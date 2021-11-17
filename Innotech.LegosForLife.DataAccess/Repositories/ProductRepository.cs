@@ -65,12 +65,13 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
         {
             try
             {
-                var product = ReadById(Id);
-                _ctx.Products.Remove(new ProductEntity
+                var wcd = _ctx.Products.Where(p => p.Id == Id);
+
+                foreach (var wc in wcd.ToList())
                 {
-                    Id = product.Id,
-                    Name = product.Name
-                });
+                    _ctx.Products.Remove(wc);
+                }
+
 
                 _ctx.SaveChanges();
                 return true;
