@@ -72,14 +72,21 @@ namespace InnoTech.LegosForLife.Domain.Test
         [Fact]
         public void CreateProduct_ValidProduct_ReturnsTrue()
         {
-            Product product = new Product
+            var product = new Product
             {
                 Id = 1,
-                Name = "ost"
+                Name = "Ost"
             };
-            _mock.Setup(r => r.Create(product)).Returns(true);
-            var actual = _service.Create(product);
-            Assert.True(actual);
+            List<Product> products = new List<Product>();
+            products.Add(product);
+            _mock.Setup(r => r.FindAll())
+                .Returns(products);
+
+            //Act
+            bool productCreated = _service.Create(product);
+           
+            //Assert
+            Assert.Equal(products, _service.GetProducts());
         }
 
         [Theory]
