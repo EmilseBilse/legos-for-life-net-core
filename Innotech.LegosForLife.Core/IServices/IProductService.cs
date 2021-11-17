@@ -10,6 +10,7 @@ namespace InnoTech.LegosForLife.Core.IServices
 
 
         bool Create(Product product);
+        bool Delete(int product);
     }
     
     

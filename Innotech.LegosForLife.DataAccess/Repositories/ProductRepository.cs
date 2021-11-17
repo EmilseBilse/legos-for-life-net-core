@@ -65,9 +65,9 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
         {
             try
             {
-                var wcd = _ctx.Products.Where(p => p.Id == Id);
+                var product = _ctx.Products.Where(p => p.Id == Id);
 
-                foreach (var wc in wcd.ToList())
+                foreach (var wc in product.ToList())
                 {
                     _ctx.Products.Remove(wc);
                 }
