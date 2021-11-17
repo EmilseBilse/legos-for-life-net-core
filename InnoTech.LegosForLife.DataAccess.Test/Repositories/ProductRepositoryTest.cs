@@ -106,6 +106,28 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
             string actual = JsonConvert.SerializeObject(repository.ReadById(id));
             Assert.Equal(expected, actual);
         }
+
+        [Theory]
+        [InlineData(1,"LEEEEGOOO1")]
+        [InlineData(2,"HEJSA LEGO 2")]
+        public void UpdateNameByIdTest(int id, string newName)
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new ProductRepository(fakeContext);
+            var list = new List<ProductEntity>
+            {
+                new ProductEntity {Id = 1, Name = "Lego1"},
+                new ProductEntity {Id = 2, Name = "Lego2"},
+                new ProductEntity {Id = 3, Name = "Lego3"}
+            };
+            fakeContext.Set<ProductEntity>().AddRange(list);
+            fakeContext.SaveChanges();
+
+            string expected = JsonConvert.SerializeObject(new Product {Id = id, Name = newName});
+
+            string actual = JsonConvert.SerializeObject(repository.UpdateNameById(id, newName));
+            Assert.Equal(expected,actual);
+        }
         
     }
 

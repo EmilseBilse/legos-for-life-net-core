@@ -85,13 +85,27 @@ namespace InnoTech.LegosForLife.Domain.Test
         [Theory]
         [InlineData(1)]
         [InlineData(2)]
-        public void ReadById(int id)
+        public void ReadByIdTest(int id)
         {
             _mock.Setup(r => r.ReadById(id))
                 .Returns(new Product {Id = id, Name = "Lego1"});
 
             var actual = JsonConvert.SerializeObject(_service.ReadById(id));
             var expected = JsonConvert.SerializeObject(new Product {Id = id, Name = "Lego1"});
+            Assert.Equal(expected,actual);
+        }
+
+        [Fact]
+        public void UpdateProductTest()
+        {
+            int id = 1;
+            string newName = "Leeeego33";
+            _mock.Setup(r => r.UpdateNameById(id, newName))
+                .Returns(new Product {Id = id, Name = newName});
+
+            string actual = JsonConvert.SerializeObject(_service.UpdateNameById(id, newName));
+            string expected = JsonConvert.SerializeObject(new Product {Id = id, Name = newName});
+            
             Assert.Equal(expected,actual);
         }
     }

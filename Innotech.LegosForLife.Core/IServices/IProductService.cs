@@ -10,6 +10,7 @@ namespace InnoTech.LegosForLife.Core.IServices
 
 
         bool Create(Product product);
+        Product UpdateById(int id, string newName);
     }
     
     

@@ -60,5 +60,20 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
                     Name = pe.Name
                 }).FirstOrDefault(pe => pe.Id == id);
         }
+
+        public Product UpdateNameById(int id, string newName)
+        {
+            ProductEntity entity = _ctx.Products.Update(new ProductEntity
+            {
+                Id = id,
+                Name = newName
+            }).Entity;
+
+            return new Product
+            {
+                Id = entity.Id,
+                Name = entity.Name
+            };
+        }
     }
 }
