@@ -38,6 +38,7 @@ namespace InnoTech.LegosForLife.DataAccess.Repositories
                     Id = product.Id,
                     Name = product.Name
                 });
+                _ctx.SaveChanges();
                 return true;
             }
             catch (Exception e)

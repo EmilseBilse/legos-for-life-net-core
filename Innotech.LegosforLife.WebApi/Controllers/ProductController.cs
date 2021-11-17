@@ -22,5 +22,12 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
         {
             return _productService.GetProducts();
         }
+
+        [HttpPost]
+        public ActionResult<Product> Create([FromBody] Product product)
+        {
+            var createdProduct = _productService.Create(product);
+            return Created($"https://localhost/api/products/{createdProduct}",createdProduct);
+        }
     }
 }

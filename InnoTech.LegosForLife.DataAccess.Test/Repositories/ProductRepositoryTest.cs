@@ -77,12 +77,15 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
                Id = 1,
                Name = "Ost"
            };
+           List<Product> products = new List<Product>();
+           products.Add(product);
            
+
            //Act
            bool productCreated = repository.Create(product);
            
            //Assert
-           Assert.True(productCreated);
+           Assert.Equal(products, repository.FindAll(), new Comparer());
         }
 
         [Theory]
