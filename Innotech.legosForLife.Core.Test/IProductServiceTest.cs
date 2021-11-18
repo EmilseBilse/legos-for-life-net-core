@@ -84,16 +84,39 @@ namespace InnoTech.LegosForLife.Core.Test
         public void DeleteProduct()
         {
             var mock = new Mock<IProductService>();
+            
+            int mockProductId = 1;
             Product product = new Product
             {
-                Id = 1,
-                Name = "ost"
+                Id = mockProductId,
+                Name = "Ost"
             };
-            mock.Setup(s => s.Create(product)).Returns(true);
+            
+            List<Product> products = new List<Product>
+            {
+                new() {Id = 2, Name = "Brød"},
+                new() { Id = 3, Name = "Vin"},
+                
+            };
+            mock.Setup(s => s.GetProducts())
+                .Returns(products);
             var service = mock.Object;
+            
             service.Create(product);
-            mock.Setup(s => s.Delete(product.Id)).Returns(true);
-            Assert.True(service.Delete( product.Id));
+            service.Create(new Product
+            {
+                Id = 2,
+                Name = "Brød"
+            });
+            service.Create(new Product
+            {
+                Id = 3,
+                Name = "Vin"
+            });
+
+            service.Delete(mockProductId);
+
+            Assert.Equal(products, service.GetProducts());
         }
     }
 }

@@ -115,5 +115,41 @@ namespace InnoTech.LegosForLife.Domain.Test
             
             Assert.Equal(expected,actual);
         }
+
+        [Fact]
+        public void DeleteProduct()
+        { 
+            int mockProductId = 1;
+            Product product = new Product
+            {
+                Id = mockProductId,
+                Name = "Ost"
+            };
+            
+            List<Product> products = new List<Product>
+            {
+                new() {Id = 2, Name = "Brød"},
+                new() { Id = 3, Name = "Vin"},
+                
+            };
+            _mock.Setup(s => s.FindAll())
+                .Returns(products);
+
+            _service.Create(product);
+            _service.Create(new Product
+            {
+                Id = 2,
+                Name = "Brød"
+            });
+            _service.Create(new Product
+            {
+                Id = 3,
+                Name = "Vin"
+            });
+
+            _service.Delete(mockProductId);
+
+            Assert.Equal(products, _service.GetProducts());
+        }
     }
 }

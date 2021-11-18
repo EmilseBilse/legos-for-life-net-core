@@ -82,7 +82,7 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
            
 
            //Act
-           bool productCreated = repository.Create(product);
+           repository.Create(product);
            
            //Assert
            Assert.Equal(products, repository.FindAll(), new Comparer());
@@ -145,8 +145,26 @@ namespace InnoTech.LegosForLife.DataAccess.Test.Repositories
                 Name = "Ost"
             };
             repository.Create(product);
-            
-            Assert.True(repository.Delete(mockProductId));
+            repository.Create(new Product
+            {
+                Id = 2,
+                Name = "Brød"
+            });
+            repository.Create(new Product
+            {
+                Id = 3,
+                Name = "Vin"
+            });
+            List<Product> products = new List<Product>
+            {
+                new() {Id = 2, Name = "Brød"},
+                new() { Id = 3, Name = "Vin"},
+                
+            };
+
+            repository.Delete(mockProductId);
+
+            Assert.Equal(products, repository.FindAll(), new Comparer());
             
         }
         
