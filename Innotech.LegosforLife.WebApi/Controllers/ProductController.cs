@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using InnoTech.LegosForLife.Core.IServices;
@@ -35,6 +36,13 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
         {
              _productService.Delete(id);
             
+        }
+
+        [HttpPut]
+        public ActionResult<Product> Update(int id, string newName)
+        {
+            var updatedProduct = _productService.UpdateById(id, newName);
+            return Created($"https://localhost/api/products/{updatedProduct}", updatedProduct);
         }
     }
 }
