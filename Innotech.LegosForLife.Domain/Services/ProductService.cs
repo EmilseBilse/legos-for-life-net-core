@@ -32,7 +32,7 @@ namespace InnoTech.LegosForLife.Domain.Services
 
         public Product UpdateById(int id, string newName)
         {
-            throw new System.NotImplementedException();
+            return _productRepository.UpdateNameById(id, newName);
         }
 
         public Product UpdateNameById(int id, string newName)
