@@ -42,6 +42,17 @@ namespace InnoTech.LegosForLife.WebApi
                 {
                     options.UseSqlite("Data Source=main.db");
                 });
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Dev-cors", policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +63,7 @@ namespace InnoTech.LegosForLife.WebApi
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Innotech.LegosforLife.WebApi v1"));
+                app.UseCors("Dev-cors");
                 new DbSeeder(context).SeedDevelopment();
             }
 
