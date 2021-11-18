@@ -24,6 +24,12 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
             return _productService.GetProducts();
         }
 
+        [HttpGet("{id}")]
+        public ActionResult<Product> getById(int id)
+        {
+            return _productService.ReadById(id);
+        }
+
         [HttpPost]
         public ActionResult<Product> Create([FromBody] Product product)
         {
