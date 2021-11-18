@@ -29,5 +29,12 @@ namespace InnoTech.LegosForLife.WebApi.Controllers
             var createdProduct = _productService.Create(product);
             return Created($"https://localhost/api/products/{createdProduct}",createdProduct);
         }
+
+        [HttpDelete]
+        public void Remove(int id)
+        {
+             _productService.Delete(id);
+            
+        }
     }
 }
